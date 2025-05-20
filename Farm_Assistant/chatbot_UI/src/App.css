@@ -1,0 +1,6 @@
+.App {
+  min-height: 100vh;
+  padding: 20px;
+  background: url('./assets/farm-pattern.svg') repeat, linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+  background-size: 100px 100px, cover;
+}

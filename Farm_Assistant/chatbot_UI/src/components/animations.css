@@ -1,0 +1,84 @@
+.growing-plant {
+  position: fixed;
+  bottom: -10px;
+  left: 20px;
+  width: 60px;
+  height: 120px;
+  z-index: 1;
+  animation: plantGrowth 3s ease-in-out infinite;
+}
+
+.growing-plant::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  height: 60%;
+  background: #4CAF50;
+  transform-origin: bottom;
+  animation: stemSway 4s ease-in-out infinite;
+}
+
+.growing-plant::after {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: calc(50% - 15px);
+  width: 30px;
+  height: 30px;
+  background: #81C784;
+  border-radius: 50% 0 50% 0;
+  transform-origin: center;
+  animation: leafGrow 4s ease-in-out infinite;
+}
+
+@keyframes plantGrowth {
+  0%, 100% { transform: scaleY(0.95); }
+  50% { transform: scaleY(1.05); }
+}
+
+@keyframes stemSway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes leafGrow {
+  0%, 100% { transform: scale(0.95) rotate(-5deg); }
+  50% { transform: scale(1.05) rotate(5deg); }
+}
+
+.farming-equipment {
+  position: fixed;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tractor {
+  top: 10%;
+  right: 5%;
+  width: 120px;
+  height: 80px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path d="M20,40 h60 v-20 h-40 l-20,20" fill="%234CAF50"/><circle cx="25" cy="40" r="10" fill="%23333"/><circle cx="75" cy="40" r="15" fill="%23333"/></svg>') no-repeat;
+  animation: tractorMove 15s linear infinite;
+}
+
+.drone {
+  top: 20%;
+  left: 10%;
+  width: 60px;
+  height: 60px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><path d="M30,30 l15,-15 l-15,-15 l-15,15 z" fill="%234CAF50"/></svg>') no-repeat;
+  animation: droneHover 4s ease-in-out infinite;
+}
+
+@keyframes tractorMove {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-120px); }
+}
+
+@keyframes droneHover {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -10px); }
+}
