@@ -1,0 +1,144 @@
+{
+  "name": "Simple_Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e805f259-dcee-4166-a7e0-92c5cf527d5d",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -180,
+        -60
+      ],
+      "id": "e44401a2-4628-4ade-8aed-50b75a0470c8",
+      "name": "Webhook",
+      "webhookId": "e805f259-dcee-4166-a7e0-92c5cf527d5d"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=input prompt : {{ $json.body.message }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant and main task is to give the complete details about the framing and the related questions.\nThe answer should be in a user friendly and easy to understand.\nThe main thing is the nswer should in a short and sweat.\nif the user ask the question apart from a agriculture and farming,the bot should show the message \"I am designed to Assist for Farming and agriculture\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        140,
+        -60
+      ],
+      "id": "7142e8e8-682b-420f-8a7d-6533b49d379d",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        -60
+      ],
+      "id": "47d7ceab-cadc-497b-aaa8-83ec8fd27cbe",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "{{ $json.output }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        160
+      ],
+      "id": "271bfe5d-fab7-4738-b665-4a11c439564f",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-04-17",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        100,
+        160
+      ],
+      "id": "09dcac47-e657-428b-8d15-538f9efdf6cc",
+      "name": "Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "VUJvSeKrlGJbGoS9",
+          "name": "farm_bot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e10a668e-69d6-4ad6-9209-6ed3142204a5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b4405334aba739f5e5fb0dac339d7bd2631010219c8d08381c6d33539ba04010"
+  },
+  "id": "I2zXIVCsZGKc9fhq",
+  "tags": []
+}
